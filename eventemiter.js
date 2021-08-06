@@ -13,10 +13,13 @@ Emitter.prototype.on = function(type, listener) {
     }
 }
 
-Emitter.prototype.emit = function(type) {
+Emitter.prototype.emit = function(...args) {
+    let type = args[0];
+    let data = args.length > 1 ? args.slice(1) : null;
+
     if(this.events[type]) {
         this.events[type].forEach(function(listener) {
-            listener();
+            listener(...data);
         });
     }
 }
